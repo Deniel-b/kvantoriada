@@ -12,6 +12,19 @@ def index():
     return app.send_static_file("file")
 
 
+@app.route('/append_user', methods=["GET", "POST"])
+def append_user():
+    Crud.create_row()
+
+
+@app.route('/delete_user', methods=['GET', 'POST'])
+def delete_user():
+    Crud.delete_row()
+
+
+
+
+
 @app.context_processor
 def override_url_for():
     return dict(url_for=dated_url_for)

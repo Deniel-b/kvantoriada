@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f49658f0-73f8-4238-83dd-093b71dafca1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/regressions func/dday.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regressions func/nwday.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/databases/crud.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jsonbin/pers.json" beforeDir="false" afterPath="$PROJECT_DIR$/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
