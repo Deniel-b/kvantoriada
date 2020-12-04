@@ -1,6 +1,6 @@
 from databases.crud import Crud
 from flask import Flask, config, render_template
-from flask import url_for, g
+from flask import url_for, g, request
 import os
 from databases.persondb import *
 
@@ -20,7 +20,8 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    data = Crud.parser()
+    jsonfile = request.json
+    data = Crud.parser(jsonfile)
     Crud.comparison(data[0], data[1])
 
 
