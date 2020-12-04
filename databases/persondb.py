@@ -23,9 +23,10 @@ class Humans(Model):
 
 class Users(Model):
     id = PrimaryKeyField(null=False, unique=True)
-    Login = TextField(null=False)
+    Login = TextField(null=False, unique=True)
     Password = TextField(null=False)
     Type = BooleanField()
+    Name = TextField()
 
     class Meta:
         database = db

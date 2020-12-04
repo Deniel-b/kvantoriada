@@ -1,6 +1,7 @@
 from databases.persondb import *
 from databases.obejcts import Patients
 import peewee
+from flask import jsonify
 import json
 
 
@@ -24,16 +25,16 @@ class Crud:
 
     @staticmethod
     def comparison(login, password):
-        if Users.select().where(Users.Login == login).get():
-            if password == Users.Password:
-                data = {"Login": Users.Login,
-                        "Type": Users.Type}  # 1 doctor 0 user
-
-                return json.dumps(data, ensure_ascii=False)
+        if Users.select().where(Users.Login == login):
+            row = Users.select().where(Users.Login == login).get()
+            if row.Password == password:
+                return 'true'
             else:
-                return False
+                return 'false'
         else:
-            return False
+            return 'false'
+
+
 
     @staticmethod
     def create_row(name, surname, timestart, timeend, age, birth, gender, diseases, doctor):

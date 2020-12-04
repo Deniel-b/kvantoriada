@@ -1,16 +1,12 @@
 from databases.crud import Crud
 from flask import Flask, config, render_template
-from flask import url_for, g, request
+from flask import url_for, g, request, jsonify
 import os
+from predict.nwday import predict
 from databases.persondb import *
 
 app = Flask(__name__)
 app.config['TEMPLATE_AUTO_RELOAD'] = True
-
-
-@app.route('/')
-def index():
-    return app.send_static_file("file")
 
 
 @app.route('/register')
@@ -20,14 +16,19 @@ def register():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    jsonfile = request.json
-    data = Crud.parser(jsonfile)
-    Crud.comparison(data[0], data[1])
+    data = request.json
+    return jsonify({"ans": Crud.comparison(data['login'], data['password'])})
 
 
 @app.route('/append_user', methods=["GET", "POST"])
 def append_user():
     Crud.create_row()
+
+
+@app.route('/time', methods=["GET", "POST"])
+def time_post():
+    data = request.json
+    return jsonify({"ans": predict(data['name'])})
 
 
 @app.route('/delete_user', methods=['GET', 'POST'])
@@ -57,3 +58,7 @@ def add_header(r):
     r.headers["Expires"] = "0"
     r.headers['Cache-Control'] = 'public, max-age=0'
     return r
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5000)

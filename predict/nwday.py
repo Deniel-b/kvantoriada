@@ -1,13 +1,15 @@
 from datetime import datetime
 from peewee import *
 from databases.persondb import *
+import random
 
 # всякие импорты
 
 # данные, которые мы хотим получить от пациента или от базы данных
-user_id = int(input())
-def predict(user_id):
-    row = Humans.get(Humans.ID == user_id)
+# user_id = int(input())
+def predict(name):
+    row = Humans.select().where(Humans.Name == name).get()
+    print(row)
     age = row.Age  # ввод возраста ПАЦИЕНТА
     imya = row.Name  # ввод имени
     familiya = row.Surname  # ввод фамилии
@@ -16,14 +18,10 @@ def predict(user_id):
 
 
 
-    deystv = str(input("Что делаем?: "))  # ввод действия справка, осмотр, лечение
-    kabinet = str(input("Какой врач вам нужен?: "))  # ввод кабинета
-    probl = str(input(
-        "Кол-во сопустсвующих заболеваний: "))  # ввод проблем (болит голова и печень, а ещё бы пятно на руке посмотреть)
+
 
     # списки, словари и т.д
-    inpspis = [imya, familiya, age, deystv, kabinet,
-               probl]  # список: имя, фамилия, возраст, действие, кабинет, кол-во проблем
+    inpspis = [imya, familiya, age]  # список: имя, фамилия, возраст, действие, кабинет, кол-во проблем
 
     # обозначаем время которое тратится на обычного, молодого человека(в секундах)
     spravka = 300  # справка
@@ -36,7 +34,7 @@ def predict(user_id):
 
     # --------------------------------------------------------------------------
 
-    balance = 0  # количество минут в сеансе
+    balance = 900   # количество минут в сеансе
 
     # --------------------------------------------------------------------------
 
@@ -48,33 +46,36 @@ def predict(user_id):
 
 
 
-    spis = inpspis.copy()
+    # spis = inpspis.copy()
     # добавляем время по действиям
-    if spis[3].lower() == "осмотр":
+    # для сырого прототипа и тестирования, будем устанавливать значения рандомно
+    value = random.randint(0, 100)
+    probl = random.randint(0, 5)
+    if value >= 0 and value <= 60:
         balance = int(balance) + int(osmotr)
-    elif spis[3].lower() == "справка":
+    elif value > 60 and value <= 90:
         balance = int(balance) + int(spravka)
-    elif spis[3].lower() == "лечение":
+    elif value > 90:
         balance = int(balance) + int(lechenie)
     else:
         bon = False
         balance = int(srbonus) * int(probl)
 
     # бонусы и штрафы врачам
-    if kabinet.lower() == "психолог":
+    ''' if kabinet.lower() == "психолог":
         ultrabonus = int(maxbonus) * 10
         balance = int(balance) + int(ultrabonus)
     elif kabinet.lower() == "травматолог":
         balance = int(balance) + int(maxbonus)
     elif kabinet.lower() == "дерматолог":
-        balance = int(balance) - maxbonus - 180
-
+        balance = int(balance) - maxbonus - 180 '''
     # если ребёнок
-    if int(spis[2]) < 6:
+
+    if int(age) < 6:
         baby = True
         balance = int(balance) + int(maxbonus)
     # если старик
-    if int(spis[2]) >= 60:
+    if int(age) >= 60:
         old = True
         balance = int(balance) + int(maxbonus)
     if int(probl) > 1 and bon:
@@ -90,4 +91,4 @@ def predict(user_id):
 
     # Определение врача
 
-    return balance
+    return balance / 60
