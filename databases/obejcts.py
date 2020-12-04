@@ -10,3 +10,10 @@ class Patients:
         self.gender = gender
         self.diseases = diseases
         self.doctor = doctor
+
+
+class Users:
+    def __init__(self, id, login, password):
+        self.id = id
+        self.login = login
+        self.password = password

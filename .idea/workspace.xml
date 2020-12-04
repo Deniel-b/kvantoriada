@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f49658f0-73f8-4238-83dd-093b71dafca1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/jsonbin/some.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/databases/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/databases/crud.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/databases/obejcts.py" beforeDir="false" afterPath="$PROJECT_DIR$/databases/obejcts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/databases/persondb.py" beforeDir="false" afterPath="$PROJECT_DIR$/databases/persondb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/databases/persons.db" beforeDir="false" afterPath="$PROJECT_DIR$/databases/persons.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/regressions func/nwday.py" beforeDir="false" afterPath="$PROJECT_DIR$/regressions func/nwday.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +47,7 @@
       <recent name="D:\github projects\kvantoriada\databases" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.crud">
+  <component name="RunManager" selected="Python.test">
     <configuration name="crud" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="kvantoriada" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -83,6 +90,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="kvantoriada" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="timeconvert" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="kvantoriada" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -106,6 +134,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.crud" />
         <item itemvalue="Python.persondb" />
         <item itemvalue="Python.timeconvert" />
@@ -130,22 +159,22 @@
       <screen x="0" y="0" width="1920" height="1034" />
     </state>
     <state x="102" y="139" width="1092" height="729" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1034@0.0.1920.1034" timestamp="1606675659008" />
-    <state width="1899" height="150" key="GridCell.Tab.0.bottom" timestamp="1607006120949">
+    <state width="1899" height="150" key="GridCell.Tab.0.bottom" timestamp="1607089763902">
       <screen x="0" y="0" width="1920" height="1034" />
     </state>
-    <state width="1899" height="150" key="GridCell.Tab.0.bottom/0.0.1920.1034@0.0.1920.1034" timestamp="1607006120949" />
-    <state width="1899" height="150" key="GridCell.Tab.0.center" timestamp="1607006120949">
+    <state width="1899" height="150" key="GridCell.Tab.0.bottom/0.0.1920.1034@0.0.1920.1034" timestamp="1607089763902" />
+    <state width="1899" height="150" key="GridCell.Tab.0.center" timestamp="1607089763901">
       <screen x="0" y="0" width="1920" height="1034" />
     </state>
-    <state width="1899" height="150" key="GridCell.Tab.0.center/0.0.1920.1034@0.0.1920.1034" timestamp="1607006120949" />
-    <state width="1899" height="150" key="GridCell.Tab.0.left" timestamp="1607006120949">
+    <state width="1899" height="150" key="GridCell.Tab.0.center/0.0.1920.1034@0.0.1920.1034" timestamp="1607089763901" />
+    <state width="1899" height="150" key="GridCell.Tab.0.left" timestamp="1607089763901">
       <screen x="0" y="0" width="1920" height="1034" />
     </state>
-    <state width="1899" height="150" key="GridCell.Tab.0.left/0.0.1920.1034@0.0.1920.1034" timestamp="1607006120949" />
-    <state width="1899" height="150" key="GridCell.Tab.0.right" timestamp="1607006120949">
+    <state width="1899" height="150" key="GridCell.Tab.0.left/0.0.1920.1034@0.0.1920.1034" timestamp="1607089763901" />
+    <state width="1899" height="150" key="GridCell.Tab.0.right" timestamp="1607089763902">
       <screen x="0" y="0" width="1920" height="1034" />
     </state>
-    <state width="1899" height="150" key="GridCell.Tab.0.right/0.0.1920.1034@0.0.1920.1034" timestamp="1607006120949" />
+    <state width="1899" height="150" key="GridCell.Tab.0.right/0.0.1920.1034@0.0.1920.1034" timestamp="1607089763902" />
     <state x="461" y="159" key="SettingsEditor" timestamp="1606673376120">
       <screen x="0" y="0" width="1920" height="1034" />
     </state>

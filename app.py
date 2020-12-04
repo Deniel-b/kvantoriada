@@ -2,6 +2,7 @@ from databases.crud import Crud
 from flask import Flask, config, render_template
 from flask import url_for, g
 import os
+from databases.persondb import *
 
 app = Flask(__name__)
 app.config['TEMPLATE_AUTO_RELOAD'] = True
@@ -12,6 +13,17 @@ def index():
     return app.send_static_file("file")
 
 
+@app.route('/register')
+def register():
+    pass
+
+
+@app.route('/login', methods=['GET'])
+def login():
+    data = Crud.parser()
+    Crud.comparison(data[0], data[1])
+
+
 @app.route('/append_user', methods=["GET", "POST"])
 def append_user():
     Crud.create_row()
@@ -20,9 +32,6 @@ def append_user():
 @app.route('/delete_user', methods=['GET', 'POST'])
 def delete_user():
     Crud.delete_row()
-
-
-
 
 
 @app.context_processor

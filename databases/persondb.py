@@ -21,3 +21,12 @@ class Humans(Model):
         db_table = 'Persons'
 
 
+class Users(Model):
+    id = PrimaryKeyField(null=False, unique=True)
+    Login = TextField(null=False)
+    Password = TextField(null=False)
+    Type = BooleanField()
+
+    class Meta:
+        database = db
+        db_table = "Users"

@@ -1,4 +1,4 @@
-from databases.persondb import Humans
+from databases.persondb import *
 from databases.obejcts import Patients
 import peewee
 import json
@@ -15,6 +15,25 @@ class Crud:
         self.gender = gender
         self.diseases = diseases
         self.doctor = doctor
+
+    @staticmethod
+    def parser(jsfile):
+        with open(jsfile, "r") as read_file:
+            data = json.load(read_file)
+        return data
+
+    @staticmethod
+    def comparison(login, password):
+        if Users.select().where(Users.Login == login).get():
+            if password == Users.Password:
+                data = {"Login": Users.Login,
+                        "Type": Users.Type}  # 1 doctor 0 user
+
+                return json.dumps(data, ensure_ascii=False)
+            else:
+                return False
+        else:
+            return False
 
     @staticmethod
     def create_row(name, surname, timestart, timeend, age, birth, gender, diseases, doctor):
@@ -39,9 +58,9 @@ class Crud:
     @staticmethod
     def get_patient(user_id):
         row = Humans.select().where(Humans.ID == user_id).get()
-        temp = {row.ID: {"Name": row.name, "Surname": row.surname, "TimeStart": row.timestart,
-                         "TimeEnd": row.timeend, "Age": row.age, "Birth": row.birth, "Gender": row.gender,
-                         "Diseases": row.diseases, "Doctor": row.doctor}}
+        temp = {"Name": row.Name, "Surname": row.Surname, "TimeStart": row.TimeStart,
+                         "TimeEnd": row.TimeEnd, "Age": row.Age, "Birth": row.Birth, "Gender": row.Gender,
+                         "Diseases": row.Diseases, "Doctor": row.Doctor}
         return json.dumps(temp, ensure_ascii=True)
 
     @staticmethod
@@ -69,4 +88,3 @@ class Crud:
     def delete_row(user_id):
         row = Humans.delete().where(Humans.ID == user_id)
         row.execute()
-
