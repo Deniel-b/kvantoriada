@@ -18,7 +18,7 @@ def register():
     pass
 
 
-@app.route('/login', methods=['GET'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     data = Crud.parser()
     Crud.comparison(data[0], data[1])
