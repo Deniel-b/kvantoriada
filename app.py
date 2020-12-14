@@ -9,14 +9,19 @@ app = Flask(__name__)
 app.config['TEMPLATE_AUTO_RELOAD'] = True
 
 
-@app.route('/register')
+@app.route('/reg', methods=["GET", "POST"])
 def register():
-    pass
+    data = request.json
+    print(data)
+    temp = Crud.create_user(data['surname'], data['name'], data['patronymic'], data['gender'], data['login'],
+                            data['password'])
+    return jsonify({'ans': temp})
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     data = request.json
+    print(data)
     return jsonify({"ans": Crud.comparison(data['login'], data['password'])})
 
 
@@ -36,7 +41,13 @@ def delete_user():
     Crud.delete_row()
 
 
-@app.context_processor
+@app.route('/get_appointment', methods=["POST"])
+def get_appointments():
+    data = request.json
+    return jsonify({"ans": Crud.get_appointmentslist(data['email'])})
+
+
+'''@app.context_processor
 def override_url_for():
     return dict(url_for=dated_url_for)
 
@@ -57,8 +68,7 @@ def add_header(r):
     r.headers["Pragma"] = "no-cache"
     r.headers["Expires"] = "0"
     r.headers['Cache-Control'] = 'public, max-age=0'
-    return r
-
+    return r'''
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

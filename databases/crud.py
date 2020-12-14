@@ -1,8 +1,9 @@
 from databases.persondb import *
-from databases.obejcts import Patients
+from databases.obejcts import *
 import peewee
 from flask import jsonify
 import json
+import hashlib
 
 
 class Crud:
@@ -24,68 +25,124 @@ class Crud:
         return data
 
     @staticmethod
-    def comparison(login, password):
-        if Users.select().where(Users.Login == login):
-            row = Users.select().where(Users.Login == login).get()
-            if row.Password == password:
-                return 'true'
+    def comparison(email, password):
+        if Users.select().where(Users.Email == email):
+            print("True")
+            if Crud.comparison_hash(email, password):
+                return True
             else:
-                return 'false'
+                return False
         else:
-            return 'false'
-
-
+            return False
 
     @staticmethod
-    def create_row(name, surname, timestart, timeend, age, birth, gender, diseases, doctor):
-        row = Humans(
+    def create_row(name, surname, email, password, age, birth, gender, type=0):
+        row = Users(
             Name=name,
             Surname=surname,
-            TimeStart=timestart,
-            TimeEnd=timeend,
+            Email=email,
+            Password=password,
             Age=age,
             Birth=birth,
             Gender=gender,
-            Diseases=diseases,
-            Doctor=doctor
+            Type=type
         )
         row.save()
-        temp = {row.ID: {"Name": name, "Surname": surname, "TimeStart": timestart,
-                         "TimeEnd": timeend, "Age": age, "Birth": birth, "Gender": gender, "Diseases": diseases,
-                         "Doctor": doctor}}
-        print(temp)
+        temp = {
+            row.ID: {"Name": name, "Surname": surname, "Email": email, "Password": password, "Age": age, "Birth": birth,
+                     "Gender": gender, "Type": type}}
         return json.dumps(temp, ensure_ascii=False)
 
     @staticmethod
-    def get_patient(user_id):
-        row = Humans.select().where(Humans.ID == user_id).get()
-        temp = {"Name": row.Name, "Surname": row.Surname, "TimeStart": row.TimeStart,
-                         "TimeEnd": row.TimeEnd, "Age": row.Age, "Birth": row.Birth, "Gender": row.Gender,
-                         "Diseases": row.Diseases, "Doctor": row.Doctor}
+    def create_user(surname, name, patronymic, gender, email, password):
+        row = Users(
+            Surname=surname,
+            Name=name,
+            Patronymic=patronymic,
+            Email=email,
+            Password=Crud.hashing_password(password),
+            Gender=gender,
+            Type=False
+        )
+        if not Users.select().where(Users.Email == email):
+            row.save()
+            return True
+        elif Users.select().where(Users.Email == email):
+            return 'LoginBusy'
+        else:
+            return False
+
+    @staticmethod
+    def get_patient(email):
+        row = Users.select().where(Users.Email == email).get()
+        temp = {"Name": row.Name, "Surname": row.Surname, "Age": row.Age, "Birth": row.Birth, "Gender": row.Gender}
         return json.dumps(temp, ensure_ascii=True)
 
     @staticmethod
-    def update_row(user_id, name=Humans.Name, surname=Humans.Surname, timestart=Humans.TimeStart,
-                   timeend=Humans.TimeEnd,
-                   age=Humans.Age, birth=Humans.Birth, gender=Humans.Gender, diseases=Humans.Diseases,
-                   doctor=Humans.Doctor):
-        row = Humans.get(Humans.ID == user_id)
+    def get_usertype(email):
+        row = Users.select().where(Users.Email == email).get()
+        return row.Type
+
+    @staticmethod
+    def update_row(user_id, name=Users.Name, surname=Users.Surname, age=Users.Age, birth=Users.Birth,
+                   gender=Users.Gender, ):
+        row = Users.get(Users.ID == user_id)
         row.Name = name
         row.Surname = surname
-        row.TimeStart = timestart
-        row.TimeEnd = timeend
         row.Age = age
         row.Birth = birth
         row.Gender = gender
-        row.Diseases = diseases
-        row.Doctor = doctor
         row.save()
-        temp = {row.ID: {"Name": name, "Surname": surname, "TimeStart": timestart,
-                         "TimeEnd": timeend, "Age": age, "Birth": birth, "Gender": gender, "Diseases": diseases,
-                         "Doctor": doctor}}
+        temp = {row.ID: {"Name": name, "Surname": surname, "Age": age, "Birth": birth, "Gender": gender}}
         return json.dumps(temp)
 
     @staticmethod
-    def delete_row(user_id):
-        row = Humans.delete().where(Humans.ID == user_id)
+    def delete_row(email):
+        row = Users.delete().where(Users.Email == email)
         row.execute()
+
+    @staticmethod
+    def get_id(email):
+        row = Users.select().where(Users.Email == email).get()
+        return row.ID
+
+    @staticmethod
+    def get_appointmentslist(email):
+        key = Crud.get_id(email)
+        row = Appointments.select().where(Appointments.Key_id == key)
+        res = []
+        for app in row:
+            res.append(Appoint(app.id, app.TimeStart, app.TimeEnd, app.Data).__dict__)
+        return res
+
+    @staticmethod
+    def comparison_hash(email, password):
+        row = Users.select().where(Users.Email == email).get()
+        pass_tmp = row.Password
+        if Crud.hashing_password(password) == pass_tmp:
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def hashing_password(password):
+        tmp = hashlib.md5(password.encode())
+        return tmp.hexdigest()
+
+
+    @staticmethod
+    def get_doctor(doc_key):
+        row = Doctor.select().where(Doctor.id == doc_key)
+        return row.Name
+
+    @staticmethod
+    def get_time(direct_id):
+        doctors = Doctor.select().where(Doctor.direction_id == direct_id).get()
+        row = Appointments.select().where(Appointments.doctor_key == doctors.id).get()
+        res = []
+        for i in row:
+            res.append(Appointreg(i.id, i.TimeStart, i.TimeEnd, i.Data, i.is_busy, Crud.get_doctor(i.doctor_id)))
+
+
+
+

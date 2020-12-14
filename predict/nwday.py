@@ -7,8 +7,8 @@ import random
 
 # данные, которые мы хотим получить от пациента или от базы данных
 # user_id = int(input())
-def predict(name):
-    row = Humans.select().where(Humans.Name == name).get()
+def predict(email):
+    row = Users.select().where(Users.Email == email).get()
     print(row)
     age = row.Age  # ввод возраста ПАЦИЕНТА
     imya = row.Name  # ввод имени
