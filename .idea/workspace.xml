@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f49658f0-73f8-4238-83dd-093b71dafca1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/TODO.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/databases/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/databases/crud.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/databases/obejcts.py" beforeDir="false" afterPath="$PROJECT_DIR$/databases/obejcts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/databases/persondb.py" beforeDir="false" afterPath="$PROJECT_DIR$/databases/persondb.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/databases/persons.db" beforeDir="false" afterPath="$PROJECT_DIR$/databases/persons.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/predict/nwday.py" beforeDir="false" afterPath="$PROJECT_DIR$/predict/nwday.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/databases/persons.db-journal" beforeDir="false" afterPath="$PROJECT_DIR$/databases/persons.db-journal" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -181,22 +177,22 @@
       <screen x="0" y="0" width="1920" height="1034" />
     </state>
     <state x="102" y="139" width="1092" height="729" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1034@0.0.1920.1034" timestamp="1606675659008" />
-    <state width="1899" height="323" key="GridCell.Tab.0.bottom" timestamp="1607942138972">
+    <state width="1899" height="245" key="GridCell.Tab.0.bottom" timestamp="1607963482765">
       <screen x="0" y="0" width="1920" height="1034" />
     </state>
-    <state width="1899" height="323" key="GridCell.Tab.0.bottom/0.0.1920.1034@0.0.1920.1034" timestamp="1607942138972" />
-    <state width="1899" height="323" key="GridCell.Tab.0.center" timestamp="1607942138971">
+    <state width="1899" height="245" key="GridCell.Tab.0.bottom/0.0.1920.1034@0.0.1920.1034" timestamp="1607963482765" />
+    <state width="1899" height="245" key="GridCell.Tab.0.center" timestamp="1607963482765">
       <screen x="0" y="0" width="1920" height="1034" />
     </state>
-    <state width="1899" height="323" key="GridCell.Tab.0.center/0.0.1920.1034@0.0.1920.1034" timestamp="1607942138971" />
-    <state width="1899" height="323" key="GridCell.Tab.0.left" timestamp="1607942138971">
+    <state width="1899" height="245" key="GridCell.Tab.0.center/0.0.1920.1034@0.0.1920.1034" timestamp="1607963482765" />
+    <state width="1899" height="245" key="GridCell.Tab.0.left" timestamp="1607963482764">
       <screen x="0" y="0" width="1920" height="1034" />
     </state>
-    <state width="1899" height="323" key="GridCell.Tab.0.left/0.0.1920.1034@0.0.1920.1034" timestamp="1607942138971" />
-    <state width="1899" height="323" key="GridCell.Tab.0.right" timestamp="1607942138972">
+    <state width="1899" height="245" key="GridCell.Tab.0.left/0.0.1920.1034@0.0.1920.1034" timestamp="1607963482764" />
+    <state width="1899" height="245" key="GridCell.Tab.0.right" timestamp="1607963482765">
       <screen x="0" y="0" width="1920" height="1034" />
     </state>
-    <state width="1899" height="323" key="GridCell.Tab.0.right/0.0.1920.1034@0.0.1920.1034" timestamp="1607942138972" />
+    <state width="1899" height="245" key="GridCell.Tab.0.right/0.0.1920.1034@0.0.1920.1034" timestamp="1607963482765" />
     <state width="1899" height="323" key="GridCell.Tab.1.bottom" timestamp="1607942138972">
       <screen x="0" y="0" width="1920" height="1034" />
     </state>

@@ -47,6 +47,11 @@ def get_appointments():
     return jsonify({"ans": Crud.get_appointmentslist(data['email'])})
 
 
+@app.route('/timechoose', methods=['POST'])
+def time_choose():
+    data = request.json
+    return jsonify({"ans": Crud.get_time(data['direction'])})
+
 '''@app.context_processor
 def override_url_for():
     return dict(url_for=dated_url_for)

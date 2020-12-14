@@ -84,19 +84,6 @@ class Crud:
         return row.Type
 
     @staticmethod
-    def update_row(user_id, name=Users.Name, surname=Users.Surname, age=Users.Age, birth=Users.Birth,
-                   gender=Users.Gender, ):
-        row = Users.get(Users.ID == user_id)
-        row.Name = name
-        row.Surname = surname
-        row.Age = age
-        row.Birth = birth
-        row.Gender = gender
-        row.save()
-        temp = {row.ID: {"Name": name, "Surname": surname, "Age": age, "Birth": birth, "Gender": gender}}
-        return json.dumps(temp)
-
-    @staticmethod
     def delete_row(email):
         row = Users.delete().where(Users.Email == email)
         row.execute()
@@ -129,7 +116,6 @@ class Crud:
         tmp = hashlib.md5(password.encode())
         return tmp.hexdigest()
 
-
     @staticmethod
     def get_doctor(doc_key):
         row = Doctor.select().where(Doctor.id == doc_key)
@@ -138,11 +124,12 @@ class Crud:
     @staticmethod
     def get_time(direct_id):
         doctors = Doctor.select().where(Doctor.direction_id == direct_id).get()
-        row = Appointments.select().where(Appointments.doctor_key == doctors.id).get()
+        docs = []
+        for i in doctors:
+            docs.append(i.id.__dict__)
+        return docs
+        '''row = Appointments.select().where(Appointments.doctor_key == doctors.id).get()
         res = []
         for i in row:
             res.append(Appointreg(i.id, i.TimeStart, i.TimeEnd, i.Data, i.is_busy, Crud.get_doctor(i.doctor_id)))
-
-
-
-
+        return res'''
