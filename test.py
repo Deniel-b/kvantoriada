@@ -1,7 +1,7 @@
 from databases.crud import Crud
-import json
+# from time import sleep
+# from databases.persondb import Users
+# import json
+import databases
 
-print(Crud.get_time(1))
-
-
-
+print(Crud.get_doctorlist('doc'))

@@ -1,4 +1,5 @@
-from peewee import *
+from peewee import Model, SqliteDatabase
+from peewee import PrimaryKeyField, TextField, IntegerField, BooleanField, ForeignKeyField
 
 db = SqliteDatabase('databases/persons.db')
 
@@ -38,7 +39,7 @@ class Directions(Model):
         db_table = "Directions"
 
 
-class Room(Model):
+class Rooms(Model):
     id = PrimaryKeyField(primary_key=True, unique=True)
     room_num = IntegerField()
 
@@ -47,11 +48,12 @@ class Room(Model):
         db_table = "Rooms"
 
 
-class Doctor(Model):
+class Doctors(Model):
     id = PrimaryKeyField(primary_key=True, unique=True)
     Name = TextField()
     direction_id = ForeignKeyField(Directions)
-    room_id = ForeignKeyField(Room)
+    room_id = ForeignKeyField(Rooms)
+    login = TextField(unique=True, null=False)
 
     class Meta:
         database = db
@@ -65,8 +67,9 @@ class Appointments(Model):
     TimeEnd = IntegerField()
     Data = TextField()
     is_busy = BooleanField()
-    doctor_key = ForeignKeyField(Doctor)
+    doctor_id = ForeignKeyField(Doctors)
 
     class Meta:
         database = db
         db_table = "Appointments"
+

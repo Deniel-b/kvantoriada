@@ -1,0 +1,4 @@
+__pycache__/
+.idea/
+databases/__pycache__
+predict/__pycache__

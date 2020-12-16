@@ -1,18 +1,4 @@
-class Patients:
-    def __init__(self, id, name, surname, timestart, timeend, age, birth, gender, diseases, doctor):
-        self.id = id
-        self.name = name
-        self.surname = surname
-        self.timestart = timestart
-        self.timeend = timeend
-        self.age = age
-        self.birth = birth
-        self.gender = gender
-        self.diseases = diseases
-        self.doctor = doctor
-
-
-class Users:
+class User:
     def __init__(self, id, name, surname, email, password, age, birth, gender, type):
         self.id = id
         self.name = name
@@ -26,19 +12,26 @@ class Users:
 
 
 class Appoint:
-    def __init__(self, id, timestart, timeend, data, doctor):
+    def __init__(self, id, timestart, timeend, data, doctor, room):
         self.id = id
         self.timestart = timestart
         self.timeend = timeend
         self.data = data
         self.doctor = doctor
+        self.room = room
 
 
 class Appointreg:
-    def __init__(self, id, timestart, timeend, data, is_busy, doctor):
+    def __init__(self, id, timestart, is_busy, doctor):
         self.id = id
         self.timestart = timestart
-        self.timeend = timeend
-        self.data = data
         self.is_busy = is_busy
         self.doctor = doctor
+
+class Doctorapps:
+    def __init__(self, surname, name, patronymic, timestart, data):
+        self.surname = surname
+        self.name = name
+        self.patronymic = patronymic
+        self.timestart = timestart
+        self.data = data

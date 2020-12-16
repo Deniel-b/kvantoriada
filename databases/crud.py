@@ -1,7 +1,5 @@
 from databases.persondb import *
 from databases.obejcts import *
-import peewee
-from flask import jsonify
 import json
 import hashlib
 
@@ -19,15 +17,8 @@ class Crud:
         self.doctor = doctor
 
     @staticmethod
-    def parser(jsfile):
-        with open(jsfile, "r") as read_file:
-            data = json.load(read_file)
-        return data
-
-    @staticmethod
     def comparison(email, password):
         if Users.select().where(Users.Email == email):
-            print("True")
             if Crud.comparison_hash(email, password):
                 return True
             else:
@@ -73,10 +64,18 @@ class Crud:
             return False
 
     @staticmethod
-    def get_patient(email):
+    def get_patient_by_email(email):
         row = Users.select().where(Users.Email == email).get()
-        temp = {"Name": row.Name, "Surname": row.Surname, "Age": row.Age, "Birth": row.Birth, "Gender": row.Gender}
+        temp = {"Name": row.Name, "Surname": row.Surname, "Patronymic": row.Patronymic, "Age": row.Age,
+                "Birth": row.Birth, "Gender": row.Gender}
         return json.dumps(temp, ensure_ascii=True)
+
+    @staticmethod
+    def get_patient_by_id(key):
+        row = Users.select().where(Users.ID == key).get()
+        temp = {"Name": row.Name, "Surname": row.Surname, "Patronymic": row.Patronymic, "Age": row.Age,
+                "Birth": row.Birth, "Gender": row.Gender}
+        return temp
 
     @staticmethod
     def get_usertype(email):
@@ -94,12 +93,35 @@ class Crud:
         return row.ID
 
     @staticmethod
+    def get_doctor(doc_id):
+        row = Doctors.select().where(Doctors.id == doc_id).get()
+        return row.Name
+
+    @staticmethod
+    def get_room(room_id):
+        row = Rooms.select().where(Rooms.id == room_id).get()
+        return row.room_num
+
+    @staticmethod
     def get_appointmentslist(email):
         key = Crud.get_id(email)
         row = Appointments.select().where(Appointments.Key_id == key)
         res = []
         for app in row:
-            res.append(Appoint(app.id, app.TimeStart, app.TimeEnd, app.Data).__dict__)
+            doc = Doctors.select().where(Doctors.id == app.doctor_id).get()
+            room = doc.room_id
+            res.append(Appoint(app.id, app.TimeStart, app.TimeEnd, app.Data, Crud.get_doctor(app.doctor_id),
+                               Crud.get_room(room)).__dict__)
+        return res
+
+    @staticmethod
+    def get_doctorlist(login):
+        doc = Doctors.select().where(Doctors.login == login).get()
+        row = Appointments.select().where(Appointments.doctor_id == doc.id and Appointments.is_busy == True)
+        res = []
+        for app in row:
+            tmp = Crud.get_patient_by_id(app.Key_id)
+            res.append(Doctorapps(tmp['Surname'], tmp["Name"], tmp['Patronymic'], app.TimeStart, app.Data).__dict__)
         return res
 
     @staticmethod
@@ -117,19 +139,23 @@ class Crud:
         return tmp.hexdigest()
 
     @staticmethod
-    def get_doctor(doc_key):
-        row = Doctor.select().where(Doctor.id == doc_key)
-        return row.Name
+    def get_direct_id(direction):
+        row = Directions.select().where(Directions.direction == direction).get()
+        return row.id
 
     @staticmethod
-    def get_time(direct_id):
-        doctors = Doctor.select().where(Doctor.direction_id == direct_id).get()
-        docs = []
-        for i in doctors:
-            docs.append(i.id.__dict__)
-        return docs
-        '''row = Appointments.select().where(Appointments.doctor_key == doctors.id).get()
-        res = []
-        for i in row:
-            res.append(Appointreg(i.id, i.TimeStart, i.TimeEnd, i.Data, i.is_busy, Crud.get_doctor(i.doctor_id)))
-        return res'''
+    def get_time(direction, data):
+        doctors = Doctors.select().where(Doctors.direction_id == Crud.get_direct_id(direction)).get()
+        if Appointments.select().where(Appointments.Data == data):
+            row = Appointments.select().where(Appointments.doctor_id == doctors.id and Appointments.Data == data)
+            res = []
+            for tmp in row:
+                res.append(Appointreg(tmp.id, tmp.TimeStart, tmp.is_busy, Crud.get_doctor(tmp.doctor_id)).__dict__)
+            return res
+        else:
+            """row = Appointments.select().where(Appointments.doctor_id == doctors.id)
+            res = []
+            for tmp in row:
+                res.append(Appointreg(tmp.id, tmp.TimeStart, tmp.is_busy, Crud.get_doctor(tmp.doctor_id)).__dict__)
+            return res"""
+            return True
