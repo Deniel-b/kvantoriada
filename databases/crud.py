@@ -103,17 +103,14 @@ class Crud:
             return False
 
     @staticmethod
-    def create_user(surname, name, patronymic, email, password, birth, gender, snils, polis):
-        birth_split = birth.split('.')
-        tmp = datetime.datetime.now() - datetime.datetime(birth_split[2], birth_split[1], birth_split[0])
+    def create_user(surname, name, patronymic, email, password, age, gender, snils, polis):
         row = Users(
             Surname=surname,
             Name=name,
             Patronymic=patronymic,
             Email=email,
             Password=password,
-            Age=tmp.days // 365,
-            Birth=birth,
+            Age=age,
             Gender=gender,
             snils=snils,
             polis=polis,

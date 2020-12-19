@@ -23,8 +23,8 @@ def do_something(sc):
 def register():
     data = request.json
     print(data)
-    temp = Crud.create_user(data['surname'], data['name'], data['patronymic'], data['gender'], data['login'],
-                            data['password'])
+    temp = Crud.create_user(data['surname'], data['name'], data['patronymic'], data['login'],
+                            data['password'], data['birth'], data['gender'], data['snils'], data['polis'])
     return jsonify({'ans': temp})
 
 
