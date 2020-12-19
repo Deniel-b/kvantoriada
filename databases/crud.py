@@ -223,6 +223,7 @@ class Crud:
             TimeEnd=obj.strftime("%H:%M"),
             is_busy=True,
             doctor_id=Crud.get_doctor_id(doctor),
+            is_ended=False,
             is_reg=True,
             direction_id=Crud.get_direct_id(direction)
         )
