@@ -189,7 +189,7 @@ class Crud:
     @staticmethod
     def get_doctorlist(login):
         doc = Doctors.select().where(Doctors.login == login).get()
-        row = Appointments.select().where(Appointments.doctor_id == doc.id and Appointments.is_ended == False)
+        row = Appointments.select().where((Appointments.doctor_id == doc.id) & (Appointments.is_ended == False))
         res = []
         for app in row:
             tmp = Crud.get_patient_by_id(app.Key_id)
