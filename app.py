@@ -1,15 +1,25 @@
 from databases.crud import Crud
-from flask import Flask, config, render_template
-from flask import url_for, g, request, jsonify
-import os
+from flask import Flask
+from flask import request, jsonify
 from predict.nwday import predict
-from databases.persondb import *
+from flask_cors import CORS
+import sched
+import time
 
 app = Flask(__name__)
 app.config['TEMPLATE_AUTO_RELOAD'] = True
+CORS(app)
+
+s = sched.scheduler(time.time, time.sleep)
 
 
-@app.route('/reg', methods=["GET", "POST"])
+def do_something(sc):
+    print("Doing stuff...")
+    # do your stuff
+    s.enter(60, 1, do_something, (sc,))
+
+
+@app.route('/reg', methods=["POST"])
 def register():
     data = request.json
     print(data)
@@ -18,27 +28,18 @@ def register():
     return jsonify({'ans': temp})
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
     data = request.json
     print(data)
-    return jsonify({"ans": Crud.comparison(data['login'], data['password'])})
+    print(Crud.get_usertype(data['login']))
+    return jsonify({"ans": Crud.comparison(data['login'], data['password']), "type": Crud.get_usertype(data['login'])})
 
 
-@app.route('/append_user', methods=["GET", "POST"])
-def append_user():
-    Crud.create_row()
-
-
-@app.route('/time', methods=["GET", "POST"])
+@app.route('/time', methods=["POST"])
 def time_post():
     data = request.json
     return jsonify({"ans": predict(data['name'])})
-
-
-@app.route('/delete_user', methods=['GET', 'POST'])
-def delete_user():
-    Crud.delete_row()
 
 
 @app.route('/get_appointment', methods=["POST"])
@@ -47,33 +48,60 @@ def get_appointments():
     return jsonify({"ans": Crud.get_appointmentslist(data['email'])})
 
 
-@app.route('/timechoose', methods=['POST'])
-def time_choose():
+@app.route('/create_appointment', methods=["POST"])
+def create_appointment():
     data = request.json
-    return jsonify({"ans": Crud.get_time(data['direction'])})
-
-'''@app.context_processor
-def override_url_for():
-    return dict(url_for=dated_url_for)
+    return jsonify({'ans': Crud.create_appointment_row(data['login'], data['time'], data['data'], data['doctor'],
+                                                       data['direction'])})
 
 
-def dated_url_for(endpoint, **values):
-    if endpoint == 'static':
-        filename = values.get('filename', None)
-        if filename:
-            file_path = os.path.join(app.root_path,
-                                     endpoint, filename)
-            values['q'] = int(os.stat(file_path).st_mtime)
-    return url_for(endpoint, **values)
+@app.route('/get_doctorappointments', methods=['POST'])
+def get_doctor_appointments():
+    data = request.json
+    return jsonify({'ans': Crud.get_doctorlist(data['login'])})
 
 
-@app.after_request
-def add_header(r):
-    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-    r.headers["Pragma"] = "no-cache"
-    r.headers["Expires"] = "0"
-    r.headers['Cache-Control'] = 'public, max-age=0'
-    return r'''
+@app.route("/close_appointment", methods=['POST'])
+def close_appointment():
+    data = request.json
+    print(data['appointmentId'])
+    print(Crud.update_timeend(data['appointmentId']))
+    return jsonify({'ans': Crud.update_timeend(data['appointmentId'])})
+
+
+@app.route("/get_direction", methods=["POST"])
+def get_direction():
+    data = request.json
+    print(data)
+    print(data['data'])
+    print(Crud.return_direction(data['data']))
+    return jsonify({'ans': Crud.return_direction(data['data'])})
+
+
+@app.route("/get_time", methods=["POST"])
+def get_time():
+    data = request.json
+    return jsonify({'ans': Crud.get_time(data['direction'], data['data'])})
+
+
+@app.route("/get_doctors", methods=["POST"])
+def get_doctors():
+    data = request.json
+    return jsonify({'ans': Crud.return_doctors(data['direction'])})
+
+
+@app.route("/reg_appointment", methods=["POST"])
+def reg_appointment():
+    data = request.json
+    return jsonify({'ans': Crud.create_appointment_row(data['login'], data['timestart'], data['data'], data['doctor'],
+                                                       data['direction'])})
+
+
+@app.route('/add_time', methods=['POST'])
+def add_time():
+    data = request.json
+    return jsonify({'ans': Crud.add_time(data['id'])})
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)

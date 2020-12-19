@@ -21,7 +21,7 @@ class Appoint:
         self.room = room
 
 
-class Appointreg:
+class Appointmeta:
     def __init__(self, id, timestart, is_busy, doctor):
         self.id = id
         self.timestart = timestart
@@ -29,9 +29,20 @@ class Appointreg:
         self.doctor = doctor
 
 class Doctorapps:
-    def __init__(self, surname, name, patronymic, timestart, data):
-        self.surname = surname
+    def __init__(self, id, name, timestart, data):
+        self.id = id
         self.name = name
-        self.patronymic = patronymic
         self.timestart = timestart
         self.data = data
+
+
+class Busy_doctor:
+    def __init__(self, name, is_busy):
+        self.name = name
+        self.is_busy = is_busy
+
+
+class Busy_time:
+    def __init__(self, time, is_busy):
+        self.time = time
+        self.is_busy = is_busy

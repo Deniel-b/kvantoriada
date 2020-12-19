@@ -3,5 +3,7 @@ from databases.crud import Crud
 # from databases.persondb import Users
 # import json
 import databases
+import datetime
 
-print(Crud.get_doctorlist('doc'))
+
+print(Crud.get_appointmentslist('example@mail.ru'))

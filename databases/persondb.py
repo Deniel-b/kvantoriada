@@ -15,6 +15,8 @@ class Users(Model):
     Birth = TextField()
     Gender = TextField()
     Type = BooleanField()
+    Snils = TextField()
+    Polis = TextField()
 
     class Meta:
         database = db
@@ -68,8 +70,10 @@ class Appointments(Model):
     Data = TextField()
     is_busy = BooleanField()
     doctor_id = ForeignKeyField(Doctors)
+    is_ended = BooleanField()
+    is_reg = BooleanField()
+    direction_id = ForeignKeyField(Directions)
 
     class Meta:
         database = db
         db_table = "Appointments"
-
